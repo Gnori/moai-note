@@ -1,0 +1,64 @@
+.vscode/
+
+# OS metadata
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+
+# IDE settings
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Environment and secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.local
+
+# Editor temporaries and logs
+*.log
+*.tmp
+*.bak
+*.swp
+*~
+
+.docs
+.agent
+
+
+# Maven Wrapper 스크립트 제외 처리
+**/mvnw
+**/mvnw.cmd
+**/.mvn/
+
+# Local mailbox storage (POP3 다운로드, 첨부, eml 등 런타임 데이터)
+var/
+**/var/
+
+# 임시 Maven 다운로드 파일 및 디렉토리
+.tmp_maven/
+**/.tmp_maven/
+maven.zip
+**/maven.zip
+
+docs/.obsidian/app.json
+docs/.obsidian/appearance.json
+docs/.obsidian/core-plugins.json
+docs/.obsidian/workspace.json
+
+# git worktrees
+.worktrees/
+
+# Java/Maven compile and build outputs
+target/
+**/target/
+*.class
+**/*.class
+
+logs/
