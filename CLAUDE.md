@@ -186,7 +186,10 @@ moai-note-editor-web/dist/  ──►  moai-note-api 가 /embed.js 로 제공
 
 ```
 docs/architecture/
-└── overview.md        # ★시작점 — 구조·설계 원칙·임베드 계약·배포·포트
+├── overview.md        # ★시작점 — 구조·설계 원칙·임베드 계약·배포·포트·환경변수
+└── modules/
+    ├── moai-note-api.md          # 계층·요청 파이프라인·인증·저장 스키마·REST·MCP·오류 계약
+    └── moai-note-editor-web.md   # 번들 전략·격리·생명주기·마크다운 왕복·IME·API 클라이언트
 ```
 
 모듈별 상세 문서는 모듈이 실제로 구현된 뒤 `docs/architecture/modules/`에 추가합니다.
@@ -203,16 +206,27 @@ docs/architecture/
 
 비밀값은 **환경변수 전용**입니다. 저장소에 커밋하지 마십시오.
 
-| 변수 | 용도 |
-|------|------|
-| `MOAI_NOTE_PORT` | API 포트 (기본 7100) |
-| `MOAI_NOTE_TOKEN_SECRET` | 토큰 서명 비밀키 |
-| `MOAI_NOTE_TOKEN_TTL` | 액세스 토큰 만료 시간 |
-| `MOAI_NOTE_DB_PATH` | SQLite 파일 경로 |
-| `MOAI_NOTE_CORS_ORIGINS` | 허용 오리진 화이트리스트 (쉼표 구분) |
-| `MOAI_NOTE_TLS_CERT` / `MOAI_NOTE_TLS_KEY` | HTTPS 인증서 경로 |
+아래는 `moai-note-api/src/config.ts` 기준 **구현 확정값**입니다 (2026-07-28 확인).
+전체 설명은 [docs/architecture/overview.md §9](docs/architecture/overview.md)를 보십시오.
 
-> 위 표는 **계획값**입니다. 구현 시 확정하고 이 표를 갱신하십시오.
+| 변수 | 필수 | 기본값 | 용도 |
+|------|:----:|--------|------|
+| `MOAI_NOTE_TOKEN_SECRET` | ✅ | — | 토큰 서명 비밀키(HS256). 32자 미만이면 기동 실패 |
+| `MOAI_NOTE_CORS_ORIGINS` | ✅ | 빈 값 | 허용 오리진 화이트리스트 (쉼표 구분). `*` 금지 |
+| `MOAI_NOTE_PORT` | | `7100` | API 포트 |
+| `MOAI_NOTE_HOST` | | `0.0.0.0` | 수신 주소 |
+| `MOAI_NOTE_DB_PATH` | | `./data/moai-note.db` | SQLite 파일 경로 |
+| `MOAI_NOTE_TOKEN_TTL` | | `3600` | 액세스 토큰 만료(초) |
+| `MOAI_NOTE_TLS_CERT` / `MOAI_NOTE_TLS_KEY` | | 없음 | HTTPS 인증서 경로. 하나만 설정하면 기동 실패 |
+| `MOAI_NOTE_MAX_CONTENT_BYTES` | | `1000000` | 본문 상한(바이트) |
+| `MOAI_NOTE_MAX_TITLE_LENGTH` | | `300` | 제목 상한(문자) |
+| `MOAI_NOTE_MAX_REVISIONS` | | `50` | 문서당 리비전 보관 개수 |
+| `MOAI_NOTE_EMBED_BUNDLE` | | `../moai-note-editor-web/dist/embed.js` | `/embed.js`로 제공할 번들 |
+| `MOAI_NOTE_RATE_LIMIT_MAX` / `_WINDOW` | | `300` / `1 minute` | 요청 빈도 제한 |
+| `MOAI_NOTE_LOG_LEVEL` | | `info` | 로그 레벨 |
+
+> 템플릿은 `moai-note-api/.env.example` 입니다. 변수를 추가·변경하면 이 표와
+> `.env.example`, `docs/architecture/overview.md`를 함께 갱신하십시오.
 
 ---
 
