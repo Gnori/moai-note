@@ -62,3 +62,31 @@ target/
 **/*.class
 
 logs/
+
+# ── Node / 프론트엔드 빌드 산출물 ─────────────────
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+coverage/
+**/coverage/
+*.tsbuildinfo
+.vite/
+**/.vite/
+
+# ── 런타임 데이터 (SQLite) ───────────────────────
+# 문서 저장소가 저장소에 올라가면 안 된다
+data/
+**/data/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# ── 인증서·개인키 ────────────────────────────────
+# HTTPS 인증서를 만드는 순간 커밋 대상이 된다
+*.pem
+*.key
+*.crt
+certs/
+**/certs/

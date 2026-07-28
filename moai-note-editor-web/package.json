@@ -1,0 +1,31 @@
+{
+  "name": "moai-note-editor-web",
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "moai-note 노션형 블록 에디터 — 호스트에 임베드되는 단일 번들",
+  "dependencies": {
+    "@tiptap/core": "^3.29.1",
+    "@tiptap/extension-list": "^3.29.1",
+    "@tiptap/extension-table": "^3.29.1",
+    "@tiptap/pm": "^3.29.1",
+    "@tiptap/starter-kit": "^3.29.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.2",
+    "typescript": "^7.0.2",
+    "vite": "^8.1.5",
+    "vitest": "^4.1.10"
+  },
+  "private": true,
+  "type": "module"
+}
